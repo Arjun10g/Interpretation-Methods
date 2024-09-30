@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script>
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']],
+                processEscapes: true
+            },
+            "HTML-CSS": { scale: 90 },
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js" integrity="sha512-AMl4wfwAmDM1lsQvVBBRHYENn1FR8cfOTpt8QVbb/P55mYOdahHD4LmHM1W55pNe3j/3od8ELzPf/8eNkkjISQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Observer.min.js" integrity="sha512-7xTD1meeGGoAzwZKA0Z8YelV3qAvRltuwACWXpnxtneF7VAMztOTAi3t4laVSaE4Znq4LMPeGUIYWEvKEk5r3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js" integrity="sha512-S6SXKUZ11xkCoD/UuhdXG4B4iiCXng+xW2KCx0lgfQqmdqtjqGgm4WChdYIhO1F/CmH21vnkSUvPEgXNgDwkjg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/3.0.11/go.js" integrity="sha512-rJCXGzuwTK0WC0yc7f2+ajSYgkr9fIUq29+DdI0/hjEINR0+sceqRaxK74AG8HnjpvF88PvuYrB8WuvCWSW80Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- J Query -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="index.js" defer></script>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="content">
+          <div class="section hero">
+              <div class="reveal">
+                <h1>Interpretable Machine Learning</h1>
+                <h1>Arjun Ghumman</h1>
+            </div>
+          </div>
+          </div>
+          <div class="image-container">
+            <img src="https://assets-global.website-files.com/63ec206c5542613e2e5aa784/643312a6bc4ac122fc4e3afa_main%20home.webp" alt="image">
+          </div>
+        </div>
+
+
+      <!-- Layers -->
+      </div>
+    <div class="cover">
+        <div class="layer1">
+                <h2>Interactive flowchart for Interpretation Methods</h2>
+                <div id="myDiagramDiv"></div>   
+        </div>
+        <div class="layer0">
+          <h2>Explanation vs Prediction</h2>
+          <div class="imagessbs">
+            <img src="imgz1.jpg" alt="">
+            <img src="imgz2.jpg" alt="">
+          </div>
+          <div class="imagessbs">
+            <p style="text-align: center;">Explanation</p>
+            <p style="text-align: center;">Prediction</p>
+          </div>
+          <div class="centered-image">
+            <img src="https://ih1.redbubble.net/image.1913819882.6898/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="">
+          </div>
+        </div>
+        <div class="layer2 disappear">
+            <h2>Numerical Interpretations</h2>
+            <div class="carousel-wrapper">
+                <pre id="code-1" class="code-content">
+                  mod &lt; lm(mpg ~ hp + wt + qsec, data = mtcars)
+
+                  mod %>% summary() %>% broom::tidy() %>% apa_table_function('Table 1', '')
+                </pre>
+                <pre id="code-2" class="code-content">
+                  mod &lt; lm(mpg ~ cyl, data = mtcars %>% mutate(cyl = as.factor(cyl)))
+
+                  mod %>% summary() %>% broom::tidy() %>% apa_table_function('Table 2', 'Categorical Feature')
+
+                </pre>
+                <pre id="code-3" class="code-content">
+                  mod &lt; lm(mpg ~ hp * cyl, data = mtcars %>% mutate(cyl = as.factor(cyl) %>% fct_collapse(
+                                `4` = c('4', '6'),
+                                `8` = '8'
+                              )))
+
+                  mod %>% summary() %>% broom::tidy() %>% apa_table_function('Table 3', 'Interaction')
+                </pre>
+                <pre id="code-4" class="code-content">
+                  mod &lt; lm(mpg ~ wt + I(wt^2), data = mtcars)
+
+                  mod %>% summary() %>% broom::tidy() %>% apa_table_function('Table 4', 'Non-Linearity')
+                </pre>
+                <pre id="code-5" class="code-content">
+                  mod &lt; lm(mpg ~ hp * wt, data = mtcars)
+
+                  mod %>% summary() %>% broom::tidy() %>% apa_table_function('Table 5', 'Numerical Interaction')
+                </pre>
+                <pre id="code-6" class="code-content">
+                  mod &lt; lm(mpg ~ hp * wt * cyl, data = mtcars %>% mutate(
+                    cyl = as.factor(cyl) %>% fct_collapse(
+                      `4` = c('4', '6'),
+                      `8` = '8'
+                    )
+                  ))
+                  
+                  mod %>% summary() %>% broom::tidy() %>% apa_table_function('Table 6', '3-way Interaction')                 
+                </pre>
+                <pre id="code-7" class="code-content">
+                  mod &lt; lm(displ ~ hwy * I(cty^2), data = mpg)
+
+                  mod %>% summary() %>% broom::tidy() %>% apa_table_function('Table 7', 'Non-Linear Interaction')                  
+                </pre>
+
+                <pre id="code-8" class="code-content">
+                  df_cv &lt; 1:10 %>% map(.f = function(x){
+                    mod &lt; glm(disp ~ ns(mpg,df = x), data = mtcars)
+                    
+                    paste0(boot::cv.glm(mod,data = mtcars,K = 5)$delta[1])
+                  }) %>% unlist %>% as.numeric() %>% data.frame(df = 1:10, error = .) %>% arrange(desc(error)) %>% 
+                    slice_tail(n = 1) %>% pull(df)
+                  
+                  mod &lt; lm(disp ~ ns(mpg,df = df_cv), data = mtcars)
+                  
+                  mod %>% summary() %>% broom::tidy() %>% apa_table_function('Table 8', 'Splines with CV')
+                </pre>
+            
+              <!-- Carousel container -->
+              <div class="carousel-container">
+                <div class="carousel">
+                  <img src="img1.png" class="carousel-image" alt="Image 1">
+                  <img src="img2.png" class="carousel-image" alt="Image 2">
+                  <img src="img3.png" class="carousel-image" alt="Image 3">
+                  <img src="img4.png" class="carousel-image" alt="Image 4">
+                  <img src="img5.png" class="carousel-image" alt="Image 5">
+                  <img src="img6.png" class="carousel-image" alt="Image 6">
+                  <img src="img7.png" class="carousel-image" alt="Image 7">
+                  <img src="img8.png" class="carousel-image" alt="Image 7">
+                </div>
+                <!-- Navigation buttons -->
+                <button class="prev-btn">❮</button>
+                <button class="next-btn">❯</button>
+              </div>
+            </div>
+        </div>
+        <div class="layer3 disappear">
+          <h2>Effect Plots</h2>
+          <div class="carousel-wrapper">
+            <div class="code-display">
+              <pre id="code-2-1" class="code-content">
+                mod &lt; lm(mpg ~ hp + wt + qsec, data = mtcars)
+
+                mod %>% summary() %>% broom::tidy() %>% apa_table_function('Table 1', '')
+
+                data_list &lt; mod %>% effects::allEffects() %>% as.data.frame()
+
+                plot_effects &lt; function(data_list, x_var){
+                  data_list %>% 
+                    ggplot(aes(x = .data[[x_var]], y = fit)) +
+                    geom_line(col = 'white') +
+                    geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.1, fill = 'blue') +
+                    geom_rug(data = mtcars, aes(x = .data[[x_var]], y = NULL), sides = "b", col = "white", alpha = 0.5) +
+                    labs(title = "Effect Plot for 'hp'", x = "Horsepower (hp)", y = "Effect") +
+                    theme_minimal() +
+                    cool_facet_theme() +
+                    theme(plot.title = element_text(size = 10, color = 'white'), legend.text = element_text(size = 10))
+                }
+
+                plots &lt; data_list %>% map2(data_list %>% names, ~ plot_effects(.x, .y))
+
+                # Comine the 3 plots with patchwork with 1 plot for the entire 2nd row
+                library(patchwork)
+
+                design &lt; "
+                  1122
+                  #33#
+                "
+
+                plots[[1]] + plots[[2]] + plots[[3]] + plot_layout(design = design,)
+
+              </pre>
+              <pre id="code-2-2" class="code-content">
+                data_list &lt; mod %>% effects::allEffects() %>% as.data.frame()
+
+                # Plot_Categorical
+
+                plot_effects_cat &lt; function(data_list, x_var){
+                  data_list %>% 
+                    ggplot(aes(x = .data[[x_var]], y = fit,group = 1)) +
+                    geom_line(col = 'white') +
+                    geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1, col = 'white') +
+                    geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.1, fill = 'blue') +
+                    labs(title = "Effect Plot for 'cyl'", x = "Cylinders", y = "Effect") +
+                    theme_minimal() +
+                    cool_facet_theme() +
+                    theme(plot.title = element_text(size = 10, color = 'white'), legend.text = element_text(size = 10))
+                }
+
+                data_list %>% map2(data_list %>% names, ~ plot_effects_cat(.x, .y))
+              </pre>
+              <pre id="code-2-3" class="code-content">
+                mod %>% effects::allEffects() %>% as.data.frame() %>% .[[1]] %>% 
+                ggplot(aes(x = hp, y = fit, group = cyl)) +
+                geom_line(col = 'white') +
+                geom_ribbon(aes(ymin = lower, ymax = upper, fill = cyl), alpha = 0.3) +
+                geom_crossbar(aes(ymin = lower, ymax = upper), width = 0.1, col = 'white') +
+                labs(title = "Effect Plot for 'hp' and 'cyl'", x = "Horsepower (hp)", y = "Effect") +
+                theme_minimal() +
+                cool_facet_theme() +
+                theme(legend.position = 'top', plot.title = element_text(size = 10, color = 'white'), legend.text = element_text(size = 10))
+              </pre>
+              <pre id="code-2-4" class="code-content">
+                mod %>% effects::allEffects() %>% as.data.frame() %>% .[[1]] %>% 
+                ggplot(aes(x = wt, y = fit)) +
+                geom_line(col = 'white') +
+                geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.1, fill = 'blue') +
+                geom_rug(data = mtcars, aes(x = wt, y = NULL), sides = "b", col = "white", alpha = 0.5) +
+                labs(title = "Non-Linear Effect Plot for 'wt'", x = "Weight (wt)", y = "Effect") +
+                theme_minimal() +
+                cool_facet_theme() +
+                theme(plot.title = element_text(size = 10, color = 'white'), legend.text = element_text(size = 10))
+              </pre>
+              <pre id="code-2-5" class="code-content">
+                anim &lt; mod %>% effects::allEffects() %>% as.data.frame() %>% .[[1]] %>% 
+                mutate(wt_label = factor(wt %>% round(2))) %>%
+                mutate(wt_label = as.character(wt_label)) %>% 
+                ggplot(aes(x = hp, y = fit, group = wt_label)) +
+                geom_line(col = 'white') + # Draw lines
+                geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.1, fill = 'blue') +
+                labs(title = 'Weight Label: {closest_state}', y = 'Predicted Value (yhat)', x = 'Horsepower (hp)') +
+                theme_minimal() +
+                cool_facet_theme() +
+                theme(plot.title = element_text(size = 10, color = 'white'), legend.text = element_text(size = 10)) +
+                transition_states(wt_label, transition_length = 2, state_length = 1,wrap = T) +
+                ease_aes('linear')+
+                enter_fade() +
+                exit_fade()
+              </pre>
+              <pre id="code-2-6" class="code-content">
+                mod %>% effects::allEffects() %>% as.data.frame() %>% 
+                .[[1]] %>% 
+                mutate(wt_label = factor(wt %>% round(2))) %>%
+                ggplot(aes(x = hp, y = fit, group = cyl)) +
+                geom_line(aes(col = cyl), size = 0.5) +
+                geom_ribbon(aes(ymin = lower, ymax = upper, fill = cyl), alpha = 0.1) +
+                labs(title = 'Weight Label: {closest_state}', x = "Horsepower (hp)", y = "Effect") +
+                theme_minimal() +
+                cool_facet_theme() +
+                theme(legend.position = 'top', plot.title = element_text(size = 10, color = 'white'), legend.text = element_text(size = 10)) +
+                transition_states(wt_label, transition_length = 2, state_length = 1,wrap = T) +
+                ease_aes('linear')+
+                enter_fade() +
+                exit_fade()              
+              </pre>
+            </div>
+            <div class="carousel-container">
+              <div class="carousel">
+                <img src="imga1.png" class="carousel-image" alt="Image 1">
+                <img src="imga2.png" class="carousel-image" alt="Image 2">
+                <img src="imga3.png" class="carousel-image" alt="Image 3">
+                <img src="imga4.png" class="carousel-image" alt="Image 4">
+                <img src="imga5.gif" class="carousel-image" alt="Image 5">
+                <img src="imga6.gif" class="carousel-image" alt="Image 5">
+              </div>
+              <button class="prev-btn">❮</button>
+              <button class="next-btn">❯</button>
+            </div>
+          </div>
+          
+        </div>
+        <div class="layer4 disappear">
+          <h2>PDP (Partial Dependence Plot)</h2>
+          <p>The partial dependence plot - shows the marginal effect of features on the predicted outcome - J. H. Friedman 2001.</p>
+          <p>\[\hat{f}_S(x_S) = \mathbb{E}_{X_C} [\hat{f}(x_S, X_C)] = \int \hat{f}(x_S, X_C) \, dP(X_C)\]</p>
+          <p>Above equation demonstrates how PDP estimates the expected outcome of the prediction function as a function of the features in subset S, marginalizing over all other features \(X_{C}\).
+          </p>
+          <h3>Monte-Carlo Approximation</h3>
+          <p>\[\hat{f}_S(x_S) \approx \frac{1}{n} \sum_{i=1}^{n} \hat{f}(x_S, x_C^{(i)})\]</p>
+
+        </div>
+        <div class="layer5 disappear">
+          <h2>Simplifying PDPs</h2>
+          <div class="container">
+            <!-- Text content -->
+            <div class="text-content">
+              <ol style="font-weight: 700;">
+                <li>Select Feature</li>
+                <li>Define a Grid</li>
+                <li>For Each Grid Value:
+                  <ol style="list-style-type: upper-roman; margin-left: 55px;">
+                    <li>Replace the feature</li>
+                    <li>Make Predictions</li>
+                    <li>Repeat for each grid value</li>
+                  </ol>
+                </li>
+                <li>Averaging at each grid value</li>
+                <li>Draw the PDP Curve</li>
+              </ol>
+            </div>
+          
+            <!-- Image content -->
+            <div class="image-content">
+              <!-- MP4 Video -->
+              <video controls>
+                <source src="pdp.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="layer6 disappear">
+          <h2>PDPs vs Effect plots</h2>
+          <p>For linear models, the relationship between the features and the outcome is still fundamentally additive and linear.</p>
+          <p>PDPs = Effect plots for additive models. So, what's the point?</p>
+          <p>For more complex models where ensembles are used to combine predictions or where weights are hard to interpret, PDP >>>> Effect Plots.</p>
+          <div class="image">
+            <img src="https://media.licdn.com/dms/image/D4D12AQFIpONNGfeoWQ/article-cover_image-shrink_720_1280/0/1686297690660?e=2147483647&v=beta&t=nuYt4TbQCz3JPeK6ephmC9TYj9frx7oTfgvdaNwQNzo" alt="">
+          </div>
+        </div>
+
+        <div class="layer7 disappear">
+          <h2>PDP features</h2>
+          <ol>
+            <li>Feature Importance - Greenwell and colleagues in 2018, came up with a feature importance mechanism for PDPs.</li>
+            <p style="font-size: smaller;">Numerical:: \[I(x_S) = \sqrt{\frac{1}{K - 1} \sum_{k=1}^{K} \left( \hat{f}_S(x_S^{(k)}) - \frac{1}{K} \sum_{k=1}^{K} \hat{f}_S(x_S^{(k)}) \right)^2 }\]</p>
+            <p style="font-size: smaller;">Categorical:: \[I(x_S) = \frac{\max_k \left( \hat{f}_S(x_S^{(k)}) \right) - \min_k \left( \hat{f}_S(x_S^{(k)}) \right)}{4}\]</p>
+            <li>Marginal Effects</li>
+            <li>Causal Interpretation for the model</li>
+            <li>Restricted to 2/3 dimensional interpretations</li>
+            <li>Assumes Independence - Features in \(X_{S}\) are not correlated with features in \(X_{S}\).</li>
+            <li>Unrealistic combination of values.</li>
+          </ol>
+        </div>
+
+        <div class="layer8 disappear">
+          <h2>PDP examples</h2>
+          <div class="carousel-wrapper">
+            <div class="code-display">
+              <pre id="code-3-1" class="code-content">
+                rf_model &lt; randomForest(
+                  mpg ~ .,                
+                  data = mtcars,         
+                  ntree = 1000,           # Number of trees 
+                  importance = TRUE,      # variable importance
+                  proximity = TRUE,       
+                  strata = mtcars$cyl,    # Stratified sampling by a factor
+                  keep.forest = TRUE,     
+                  keep.inbag = TRUE       
+                )
+              
+              
+              # Create a partial dependence plot for the 'hp' variable
+              pdp_hp &lt; partial(rf_model, pred.var = "hp", grid.resolution = 50,plot.engine = 'ggplot',plot = T,rug = T,smooth = T)
+              
+              pdp_hp + papaja::theme_apa() + theme(legend.position = 'top')
+
+              </pre>
+              <pre id="code-3-2" class="code-content">
+                pdp_hp &lt; partial(rf_model, pred.var = "cyl", grid.resolution = 50,plot.engine = 'ggplot',plot = T,rug = T,smooth = T)
+
+                pdp_hp + papaja::theme_apa() + theme(legend.position = 'top') +
+                  labs(title = "Partial Dependence Plot for 'cyl' (RF)", x = "Cylinders (cyl)", y = "Partial Dependence") 
+              </pre>
+              <pre id="code-3-3" class="code-content">
+                pdp_hp &lt; partial(rf_model, pred.var = c("cyl",'hp'), grid.resolution = 50,plot.engine = 'ggplot',plot = T,rug = T,smooth = T)
+
+                pdp_hp + papaja::theme_apa() + theme(legend.position = 'top') +
+                  labs(title = "Partial Dependence Plot for 'cyl' (RF)", x = "Cylinders (cyl)", y = "Partial Dependence") 
+                
+              </pre>
+              <pre id="code-3-4" class="code-content">
+                Lost Code
+              </pre>
+              <pre id="code-3-5" class="code-content">
+                e1 &lt; effects::allEffects(lm_model)[1] %>% as.data.frame() %>% .[[1]] %>% select(1:2)
+                e2 &lt; pdp_hp_lm %>% rename(fit = yhat)
+                
+                e1 %>% mutate(type = 'effect') %>% bind_rows(e2 %>% mutate(type = 'pdp')) %>%
+                  ggplot(aes(hp, fit, color = type)) +
+                  geom_line() +
+                  labs(title = "Partial Dependence Plot for 'hp' using Linear Model", x = "Horsepower (hp)", y = "Partial Dependence") +
+                  theme_minimal() +
+                  cool_facet_theme() +
+                  theme(legend.position = 'top',
+                        plot.title = element_text(size = 10, color = 'white'),)
+              </pre>
+
+              <pre id="code-3-6" class="code-content">
+                pdp_hp %>% mutate(wt_label = factor(wt %>% round(2))) %>%
+                mutate(wt_label = as.character(wt_label)) %>% 
+                ggplot(aes(x = hp, y = yhat, group = wt_label)) +
+                geom_line() + # Draw lines
+                labs(title = 'Weight Label: {closest_state}', y = 'Predicted Value (yhat)', x = 'Horsepower (hp)') +
+                papaja::theme_apa() +
+                transition_states(wt_label, transition_length = 2, state_length = 1,wrap = T) +
+                ease_aes('linear')+
+                enter_fade() +
+                exit_fade() 
+              </pre>
+
+              <pre id="code-3-7" class="code-content">
+                library(iml)
+                library(randomForest)
+                
+   
+                rf_model &lt; randomForest(mpg ~ ., data = mtcars, ntree = 500)
+                
+
+                X &lt; mtcars[, -which(names(mtcars) == "mpg")]  # Features (excluding the target variable)
+                y &lt; mtcars$mpg  # Target variable
+                
+                predictor_rf &lt; Predictor$new(rf_model, data = X, y = y)
+                
+                # Compute feature importance
+                feature_importance &lt; FeatureImp$new(predictor_rf, loss = "mae")  # "mae" stands for Mean Absolute Error
+                
+                feature_importance
+                
+                plot(feature_importance) + 
+                  papaja::theme_apa()
+              </pre>
+
+              <pre id="code-3-8" class="code-content">
+                library(vip)
+                vip::vip(rf_model)
+              </pre>
+          </div>
+
+          <div class="carousel-container">
+            <div class="carousel">
+              <img src="imgc1.png" class="carousel-image" alt="Image 1">
+              <img src="imgc2.png" class="carousel-image" alt="Image 2">
+              <img src="imgc3.png" class="carousel-image" alt="Image 3">
+              <img src="imgc4.png" class="carousel-image" alt="Image 4">
+              <img src="imgc5.png" class="carousel-image" alt="Image 5">
+              <img src="imgc6.gif" class="carousel-image" alt="">
+              <img src="imgc7.png" class="carousel-image"  alt="">
+              <img src="imgc9.png" class="carousel-image" alt="">
+            </div>
+            <button class="prev-btn">❮</button>
+            <button class="next-btn">❯</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer9 disappear">
+      <h2>Why do PDPs fail?</h2>
+      <div class="images">
+        <img src="https://christophm.github.io/interpretable-ml-book/images/aleplot-motivation1-1.jpeg" alt="">
+        <img src="https://christophm.github.io/interpretable-ml-book/images/aleplot-motivation2-1.jpeg" alt="">
+      </div>
+      <p>PDPs average Over Marginal Distribution and lead to unrealistic data points.</p>
+      <p>This is where M-Plots comes in (odd choice of name, huh?)</p>
+    </div>
+
+    <div class="layer10 disappear">
+      <h2>M-Plots</h2>
+      <p>Introduced by Apley and Zhu in 2016, M-Plot presents a more accurate way to interpret the model.</p>
+      <!-- Equation -->
+      <p>\[
+        \hat{f}_{S,M}(x_S) = \mathbb{E}_{X_C \mid X_S} \left[ \hat{f}(X_S, X_C) \mid X_S = x_S \right] = \int_{X_C} \hat{f}(x_S, X_C) \, dP(X_C \mid X_S = x_S)
+        \]
+        </p>
+      <p>In PDPs, we averaged over the marginal distribution for \(X_{C}\). However, M-Plots average the prediction function over the conditional distribution of the features in \(X_{C}\)</p>
+      <div class="container">
+      <div class="left">
+        <img src="https://media.tenor.com/66VW3q_Z-84AAAAM/pacha-perfect.gif" alt="">
+      </div>
+
+      <div class="right">
+        <p>Averaging over the conditional distribution fixes the issue of unrealistic values overweighing the prediction function by averaging over the conditional distribution. </p>
+      </div>
+
+      </div>
+    </div>
+
+    <div class="layer11 disappear">
+      <h2>M-Plot vs PDPs vs Effect Plots</h2>
+      <pre>
+        rf_model &lt; randomForest(mpg ~ hp + wt, data = mtcars, ntree = 500)
+
+        # Function to estimate conditional M-Plots
+        mplot_conditional &lt; function(model, data, feature, grid_resolution = 10) {
+          # Define grid values for the feature of interest
+          grid &lt; seq(min(data[[feature]]), max(data[[feature]]), length.out = grid_resolution)
+          
+          # Create a storage for M-Plot results
+          results &lt; data.frame(grid = grid, avg_prediction = numeric(length(grid)))
+          
+          # Loop through each grid value
+          for (i in seq_along(grid)) {
+            x_s &lt; grid[i]  # Current grid value for the feature
+            
+            # Estimate the conditional distribution of other features given X_S = x_s
+            conditional_data &lt; data
+            conditional_data[[feature]] &lt; x_s  # Replace feature with current grid value
+            
+            # Sample from the conditional distribution
+            # Here we use a kernel density estimator (from MASS::kde2d) to approximate
+            # the joint distribution of the other features conditioned on X_S = x_s.
+            for (j in setdiff(names(data), feature)) {
+              conditional_density &lt; kde2d(data[[feature]], data[[j]], n = grid_resolution)
+              conditional_data[[j]] &lt; approx(conditional_density$x, conditional_density$y, xout = x_s)$y
+            }
+            
+            # Make predictions using the conditional data
+            predictions &lt; predict(model, newdata = conditional_data)
+            
+            # Store the average prediction for this grid value
+            results$avg_prediction[i] &lt; mean(predictions, na.rm = TRUE)
+          }
+          
+          return(results)
+        }
+
+        pdp_hp &lt; partial(rf_model, pred.var = "hp", grid.resolution = 20)
+
+        # Generate the M-Plot using conditional distribution for 'hp'
+        mplot_conditional_results &lt; mplot_conditional(rf_model, mtcars, "hp", grid_resolution = 20)
+
+        # Print the results
+
+        mplot_conditional_results &lt; mplot_conditional_results %>% mutate(type = 'M-Plot') %>% dplyr::rename(hp = 1,yhat = 2)
+
+        pdp_hp %>% mutate(type = 'pdp') %>% bind_rows(mplot_conditional_results) %>%
+          ggplot(aes(x = hp, y = yhat, color = type)) +
+          geom_line() +
+          labs(title = "M-Plot for 'hp' (RF)", x = "Horsepower (hp)", y = "Predicted Value") +
+          theme_minimal() +
+          cool_facet_theme() +
+          theme(legend.position = 'top', plot.title = element_text(size = 10, color = 'white'), legend.text = element_text(size = 10))
+
+        # Compare for a simple linear model now
+
+        mod &lt; lm(mpg ~ hp + wt, data = mtcars)
+
+        pdp_hp_lm &lt; partial(mod, pred.var = "hp", grid.resolution = 20)
+
+        # Generate the M-Plot using conditional distribution for 'hp'
+
+        mplot_conditional_results_lm &lt; mplot_conditional(mod, mtcars, "hp", grid_resolution = 20)
+
+        # Print the results
+
+        mplot_conditional_results_lm &lt; mplot_conditional_results_lm %>% mutate(type = 'M-Plot') %>% dplyr::rename(hp = 1,yhat = 2)
+
+        pdp_hp_lm %>% mutate(type = 'pdp') %>% bind_rows(mplot_conditional_results_lm) %>% 
+          ggplot(aes(x = hp, y = yhat, color = type)) +
+          geom_line() +
+          geom_smooth(data = mtcars, aes(x = hp, y = mpg,col = 'reg'), method = 'lm', se = F) +
+          geom_point(data = mtcars, aes(x = hp, y = mpg), alpha = 0.5, color = 'white') +
+          labs(title = "Plot Comparisons for 'hp' (LM)", x = "Horsepower (hp)", y = "Predicted Value") +
+          theme_minimal() +
+          cool_facet_theme() +
+          theme(legend.position = 'top', plot.title = element_text(size = 10, color = 'white'), legend.text = element_text(size = 10))
+      </pre>
+
+      <div class="images">
+        <div class="frame">
+          <iframe src="mplot1.html" frameborder="0"></iframe>
+        </div>
+        <div class="frame">
+          <iframe src="mplot2.html" frameborder="0"></iframe>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="layer12 disappear">
+      <h2>ALE (Accumulated Local Effects)</h2>
+      <p>ALE plots attempt to build on the shortcomings of PDPs and M-Plots by isolating the effect of interest.</p>
+      <p>\[
+        \hat{f}_{S,ALE}(x_S) = \int_{z_{0,S}}^{x_S} \mathbb{E}_{X_C \mid X_S = z_S} \left[ \hat{f}_S(z_S, X_C) \mid X_S = z_S \right] \, dz_S - \text{constant}
+        \]
+      </p>
+      <p>ALE plots focus on the average changes in predictions, not the predictions themselves.</p>
+      <div class="container">
+        <div class="left2">
+          <img src="https://christophm.github.io/interpretable-ml-book/images/aleplot-computation-1.jpeg" alt="">
+        </div>
+  
+        <div class="right2">
+          <ol>
+            <li>Feature Segmentation into intervals</li>
+            <li>Use the difference in boundaries to estimate local effects across conditional distribution.</li>
+            <li>Average these predictions.</li>
+            <li>Sum across intervals.</li>
+            <li>Subtract a constant to center ALE estimates.</li>
+
+          </ol>
+        </div>
+  
+      </div>
+      
+    </div>
+
+    <div class="layer13">
+      <h2>Advantages of ALE's</h2>
+      <div class="fboxcover">
+        <div class="el1">
+      <ol>
+        <li>Handles Correlated Features Better</li>
+        <li>Focuses on Local Effects</li>
+        <li>Reduces Computational Complexity.</li>
+        <li> More Accurate Estimation of Effects</li>
+      </ol>
+    </div>
+      <div class="carousel-wrapper">
+        <div class="carousel-container">
+          <div class="carousel">
+            <img src="imge1.png" class="carousel-image" alt="Image 1">
+            <img src="imge2.png" class="carousel-image" alt="Image 1">
+          </div>
+          <button class="prev-btn">❮</button>
+          <button class="next-btn">❯</button>
+      </div>
+    </div>
+      </div>
+      <div class="gif-cover">
+        <img src="imge3.gif" class="gif" alt="Image 1">
+      </div>
+
+
+    </div>
+
+    <div class="layer14">
+      <h2>Functional Decomposition of Interactions</h2>
+      <div id="myDiagramDiv2"></div>  
+      <h3>Friedman's H-statistic</h3>
+      <ul>
+        <li>A two-way interaction measure that tells us whether and to what extent two features in the model interact with each other. </li>
+        <li>A total interaction measure that tells us whether and to what extent a feature interacts in the model with all the other features.</li>
+      </ul>
+      <p>
+        <ul>
+          <li>The H-statistic measures the interaction strength between features.</li>
+          <li>To do this, we compare the observed PD function with the decomposed version that assumes no interaction.</li>
+          <li>If there’s no interaction, the difference between the observed and decomposed PD is small, meaning the H-statistic is close to 0. Otherwise it's 1 or higher.</li>
+        </ul>
+      </p>
+    </div>
+
+
+    <div class="layer15">
+      <h2>Breaking the H-statistic down</h2>
+      <p>If two features do not interact, the prediction can be expressed as the sum of their individual effects:</p>
+
+      <p>
+          \[
+          PD_{jk}(x_j, x_k) = PD_j(x_j) + PD_k(x_k)
+          \]
+      </p>
+
+      <ul>
+          <li>\(PD_{jk}(x_j, x_k)\) is the 2-way partial dependence function.</li>
+          <li>\(PD_j(x_j)\) and \(PD_k(x_k)\) are the individual partial dependence functions for feature \(x_j\) and \(x_k\).</li>
+      </ul>
+
+      <h3>Extending to All Features</h3>
+
+      <p>If feature \(x_j\) doesn’t interact with any other features, the overall prediction \(\hat{f}(x)\) can also be split into two parts:</p>
+
+      <p>
+          \[
+          \hat{f}(x) = PD_j(x_j) + PD_{-j}(x_{-j})
+          \]
+      </p>
+
+      <ul>
+          <li>\(PD_{-j}(x_{-j})\) represents the effect of all features except \(x_j\).</li>
+      </ul>
+
+    </div>
+
+    <div class="layer16">
+      <h2>Estimation of the H-statistic</h2>
+      <p>
+        The H-statistic for two features \(j\) and \(k\) is given by:
+      </p>
+      <p>\[ H_{2jk} = \frac{\sum_{i=1}^n \left( PD_{jk}(x^{(i)}_j, x^{(i)}_k) - PD_j(x^{(i)}_j) - PD_k(x^{(i)}_k) \right)^2}{\sum_{i=1}^n PD_{jk}^2(x^{(i)}_j, x^{(i)}_k)} \]</p>
+
+      
+      <p>
+        The H-statistic for feature \(j\) interacting with all other features is given by:
+      </p>
+      <p>\[ H_{2j} = \frac{\sum_{i=1}^n \left( \hat{f}(x^{(i)}) - PD_j(x^{(i)}_j) - PD_{-j}(x^{(i)}_{-j}) \right)^2}{\sum_{i=1}^n \hat{f}^2(x^{(i)})} \]</p>
+    </div>
+
+    <div class="layer17">
+      <h2>Is it worth it?</h2>
+      <table>
+        <thead>
+            <tr>
+                <th>Advantages</th>
+                <th>Disadvantages</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>The H-statistic has a solid theoretical foundation based on the partial dependence decomposition.</td>
+                <td>The H-statistic is computationally expensive and takes a long time to compute.</td>
+            </tr>
+            <tr>
+                <td>The interaction has a meaningful interpretation: it quantifies the proportion of variance explained by the interaction.</td>
+                <td>There is some variance in the computation due to estimating marginal distributions, which can lead to unstable results.</td>
+            </tr>
+            <tr>
+                <td>Being dimensionless, the statistic is comparable across features and models.</td>
+                <td>It is unclear when an interaction is significantly greater than 0, and there is no available model-agnostic test for significance.</td>
+            </tr>
+            <tr>
+                <td>The H-statistic detects all types of interactions, regardless of their form.</td>
+                <td>It can be difficult to determine when the H-statistic is large enough to consider the interaction "strong."</td>
+            </tr>
+            <tr>
+                <td>The H-statistic allows for the analysis of higher-order interactions (e.g., between 3 or more features).</td>
+                <td>The H-statistic can exceed 1, which complicates interpretation.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>If the total effect of two features is weak but consists mainly of interactions, the H-statistic can be misleadingly large.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>The H-statistic can be inflated when features are correlated, as it assumes features are shuffled independently.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>The H-statistic is not useful for image classifiers where inputs are pixels.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>It tells us the strength of interactions but not their nature, requiring partial dependence plots for further insights.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    </div>
+
+    <div class="layer18">
+      <h2>Permutation Feature importance</h2>
+      <p>Permutation feature importance is a method used to understand how important each feature is for a machine learning model.</p>
+      <ol>
+        <li>Goal: To break the relationship between the feature and the target variable by randomly permuting the variable of interest. </li>
+        <li>Measure of Performance: For each feature, permute its values and calculate the model’s error (Typically MSE).</li>
+      </ol>
+      <h3>Algorithm</h3>
+      <ol>
+        <li>Input: Trained model \( \hat{f} \), feature matrix \( X \), target vector \( y \), and error measure \( L(y, \hat{f}) \).</li>
+        <li>Estimate the original model error \( e_{\text{orig}} = L(y, \hat{f}(X)) \) (e.g. mean squared error).</li>
+        <li>For each feature \( j \in \{1, \dots, p\} \), do:
+          <ol style="margin-left: 20px;">
+            <li>Generate feature matrix \( X_{\text{perm}} \) by permuting feature \( j \) in the data \( X \). This breaks the association between feature \( j \) and the true outcome \( y \).</li>
+            <li>Estimate the error \( e_{\text{perm}} = L(y, \hat{f}(X_{\text{perm}})) \) based on the predictions of the permuted data.</li>
+            <li>Calculate permutation feature importance as quotient \( FI_j = \frac{e_{\text{perm}}}{e_{\text{orig}}} \) or difference \( FI_j = e_{\text{perm}} - e_{\text{orig}} \).</li>
+          </ol>
+        </li>
+        <li>Sort features by descending \( FI \).</li>
+      </ol>
+      
+    </div>
+
+    <div class="layer19">
+      <h2>Permutation Feature Importance Example</h2>
+      <p>PIMP can provide p values for feature based importance.</p>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Section</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Advantages of Permutation Feature Importance</strong></td>
+            <td>
+              <ul>
+                <li>Simple Interpretation:It directly shows how much the model’s prediction accuracy depends on each feature.</li>
+                <li>Takes Interactions into Account:If a feature interacts with others, its importance includes the effect of those interactions.</li>
+                <li>No Retraining Needed: It’s faster than methods that require retraining the model (like dropping a feature and rebuilding the model).</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Disadvantages of Permutation Feature Importance</strong></td>
+            <td>
+              <ul>
+                <li>Depends on Model Error: This method only shows importance in terms of model performance. If you care about how much a feature influences the output (regardless of accuracy), this method won’t help.</li>
+                <li>Randomness in Permutation: The process of shuffling introduces randomness, meaning results can vary. You might need to repeat the process multiple times to get stable results.</li>
+                <li>Correlated Features: If features are strongly correlated (e.g., height and weight), permuting one feature can create unrealistic data. This makes the interpretation of feature importance trickier.</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="image"><img src="imgf1.png" alt=""></div>
+    </div>
+
+    <div class="layer20">
+      <h2>Global Surrogate</h2>
+      <div class="container">
+        <div class="left2">
+          <img src="https://miro.medium.com/v2/resize:fit:1154/1*X2k8ms1L4xixRyCp_O-EOQ.png" alt="">
+        </div>
+        <div class="right2">
+          <ul>
+            <li>A global surrogate model is an interpretable model that is an approximation of a black-box model.</li>
+            <li>Black box models are accurate but hard to interpret.</li>
+            <li>Surrogate models are interpretable and approximate the black box model's behavior.</li>
+          </ul>
+        </div>
+      </div>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Aspect</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th colspan="2"><h3>Advantages</h3></th>
+          </tr>
+          <tr>
+            <td><strong>Flexibility</strong></td>
+            <td>You can choose any interpretable model (decision trees, linear models, etc.) as the surrogate model, and it works for any black box model.</td>
+          </tr>
+          <tr>
+            <td><strong>Intuitive</strong></td>
+            <td>Easy to understand and explain, even to people without a strong data science background.</td>
+          </tr>
+          <tr>
+            <td><strong>Measurable Quality</strong></td>
+            <td>The R-squared value tells you how well the surrogate model captures the black box model’s behavior.</td>
+          </tr>
+          <tr>
+            <th colspan="2"><h3>Disadvantages</h3></th>
+          </tr>
+          <tr>
+            <td><strong>Surrogate Explains the Model, Not the Data</strong></td>
+            <td>The surrogate model doesn’t work with the real-world outcome but rather the predictions from the black box model. If the black box model is inaccurate, the surrogate model will be irrelevant.</td>
+          </tr>
+          <tr>
+            <td><strong>R-squared Cut-off</strong></td>
+            <td>It’s unclear what R-squared threshold should be used to determine if the surrogate model is “good enough.” Should it be 80%, 90%, or higher?</td>
+          </tr>
+          <tr>
+            <td><strong>Subset Issues</strong></td>
+            <td>The surrogate model might fit one part of the data well but perform poorly on another subset.</td>
+          </tr>
+          <tr>
+            <td><strong>Interpretability Limitations</strong></td>
+            <td>Surrogate models inherit the pros and cons of the interpretable model you use (e.g., linear models or decision trees have their own limitations).</td>
+          </tr>
+        </tbody>
+      </table>      
+      </div>
+
+      <div class="layer21" style="background-image: url(mvi.png);background-size: contain; background-repeat: no-repeat; background-position: center;">
+      </div>
+
+      <div class="layer22" style="background-image: url(mllv.png);background-size: contain; background-repeat: no-repeat; background-position: center;">
+      </div>
+
+      <div class="layer23" style="background-image: url(gdbye.png);background-size: contain; background-repeat: no-repeat; background-position: center;">
+      </div>
+      </div>
+
+
+</body>
+</html>
